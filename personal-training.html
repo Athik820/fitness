@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script>
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = 'login.html';
+        }
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Training | Fitness Training</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap">
+    <style>
+        /* Reuse core styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            color: #222;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: #1a1a1a;
+            padding: 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #ff6b00;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: #fff;
+        }
+
+        /* Hero */
+        .page-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            text-align: center;
+            padding: 150px 0 100px;
+            margin-top: 70px;
+        }
+
+        .page-hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .page-hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Content */
+        .content-section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            display: inline-block;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 3px;
+            background-color: #ff6b00;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Benefits Grid */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .benefit-icon {
+            font-size: 40px;
+            color: #ff6b00;
+            margin-bottom: 20px;
+        }
+
+        .benefit-card h3 {
+            margin-bottom: 15px;
+        }
+
+        /* Pricing/Packages */
+        .packages-section {
+            background-color: #fff;
+            padding: 80px 0;
+        }
+
+        .package-card {
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .package-card.featured {
+            border: 2px solid #ff6b00;
+            box-shadow: 0 10px 40px rgba(255, 107, 0, 0.1);
+            transform: scale(1.05);
+            z-index: 1;
+        }
+
+        .package-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .package-price {
+            font-size: 48px;
+            color: #ff6b00;
+            font-weight: 700;
+            margin-bottom: 30px;
+            font-family: 'Oswald', sans-serif;
+        }
+
+        .package-price span {
+            font-size: 16px;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .package-features {
+            list-style: none;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .package-features li {
+            margin-bottom: 12px;
+        }
+
+        .package-features li i {
+            color: #ff6b00;
+            margin-right: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #ff6b00;
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #e55a00;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 70px 0 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <a href="fitness.html" class="logo">
+                <i class="fas fa-dumbbell" style="margin-right: 10px; color: #ff6b00; font-size: 32px;"></i>
+                FITNESS <span>TRAINING</span>
+            </a>
+        </div>
+    </header>
+
+    <div class="page-hero">
+        <div class="container">
+            <h1>Personal Training</h1>
+            <p>Achieve your goals faster with dedicated 1-on-1 coaching and customized plans.</p>
+        </div>
+    </div>
+
+    <section class="content-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose Personal Training?</h2>
+                <p style="max-width: 700px; margin: 20px auto 0;">Get the guidance, support, and accountability you need
+                    to transform your body and lifestyle.</p>
+            </div>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-clipboard-list"></i></div>
+                    <h3>Customized Plans</h3>
+                    <p>Workouts tailored specifically to your body type, goals, and fitness level. No generic templates.
+                    </p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-user-check"></i></div>
+                    <h3>Expert Guidance</h3>
+                    <p>Learn proper form and technique to maximize results and prevent injury under professional
+                        supervision.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-fire"></i></div>
+                    <h3>Motivation</h3>
+                    <p>Stay consistent and accountable. We'll push you past your limits and celebrate every victory.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="packages-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Training Packages</h2>
+            </div>
+
+            <div class="benefits-grid">
+                <!-- Basic -->
+                <div class="package-card">
+                    <div class="package-name">Starter</div>
+                    <div class="package-price">LKR 5,000<span>/session</span></div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> 1 Hour Session</li>
+                        <li><i class="fas fa-check"></i> Form Correction</li>
+                        <li><i class="fas fa-check"></i> Basic Meal Guide</li>
+                        <li><i class="fas fa-times" style="color: #ccc;"></i> 24/7 Support</li>
+                    </ul>
+                    <a href="fitness.html#contact" class="btn">Get Started</a>
+                </div>
+
+                <!-- Featured -->
+                <div class="package-card featured">
+                    <div
+                        style="background: #ff6b00; color: white; position: absolute; top: 0; right: 0; padding: 5px 15px; font-size: 12px; border-bottom-left-radius: 10px;">
+                        POPULAR</div>
+                    <div class="package-name">Transformation</div>
+                    <div class="package-price">LKR 40,000<span>/month</span></div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> 12 Sessions (3x/week)</li>
+                        <li><i class="fas fa-check"></i> Customized Workout Plan</li>
+                        <li><i class="fas fa-check"></i> Advanced Nutrition Plan</li>
+                        <li><i class="fas fa-check"></i> Body Composition Tracking</li>
+                        <li><i class="fas fa-check"></i> 24/7 Support</li>
+                    </ul>
+                    <a href="fitness.html#contact" class="btn">Choose Plan</a>
+                </div>
+
+                <!-- Elite -->
+                <div class="package-card">
+                    <div class="package-name">Elite</div>
+                    <div class="package-price">LKR 75,000<span>/month</span></div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> Unlimited Sessions</li>
+                        <li><i class="fas fa-check"></i> Premium App Access</li>
+                        <li><i class="fas fa-check"></i> Weekly Video Check-ins</li>
+                        <li><i class="fas fa-check"></i> Grocery Shopping Guide</li>
+                        <li><i class="fas fa-check"></i> Priority Booking</li>
+                    </ul>
+                    <a href="fitness.html#contact" class="btn">Go Elite</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>
